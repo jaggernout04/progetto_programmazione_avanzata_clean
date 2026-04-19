@@ -19,4 +19,7 @@ class II_GetExperience
 public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "I_GetExperience")
 	void GetExperience(float Experience);
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "I_GetExperience")
+	void ApplyUpgrade(UObject* DataObject);
 };
