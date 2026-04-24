@@ -24,7 +24,8 @@
 		},
 		{
 			"Name": "ProjectCleaner",
-			"Enabled": true
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/4d7f5dc837fc4b009bb91e678adf9fd0"
 		},
 		{
 			"Name": "MotionWarping",
@@ -43,7 +44,8 @@
 			"Enabled": true,
 			"SupportedTargetPlatforms": [
 				"Win64"
-			]
+			],
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/362651520df94e4fa65492dbcba44ae2"
 		}
 	]
 }
