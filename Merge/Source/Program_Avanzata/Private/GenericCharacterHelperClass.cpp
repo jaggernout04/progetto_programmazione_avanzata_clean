@@ -15,7 +15,15 @@ AGenericCharacterHelperClass::AGenericCharacterHelperClass()
 void AGenericCharacterHelperClass::BeginPlay()
 {
 	Super::BeginPlay();
-	EventHealthRegen();
+
+	GetWorldTimerManager().SetTimer(
+		HealthRegenTimerHandle,
+		this,
+		&AGenericCharacterHelperClass::EventHealthRegen,
+		1.0f,
+		!IsDead
+	);
+
 	UpdateStats();
 	CurrentHealth = MaxHealth;
 }
@@ -24,13 +32,7 @@ void AGenericCharacterHelperClass::EventHealthRegen()
 {
 
 	HealCharacter(HealthRegenSecond);
-	GetWorldTimerManager().SetTimer(
-		HealthRegenTimerHandle,
-		this,
-		&AGenericCharacterHelperClass::EventHealthRegen,
-		1.0f,
-		!IsDead
-	);
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Current Health "+FString::SanitizeFloat(CurrentHealth) + " " +FString::SanitizeFloat(HealthRegenSecond)));
 }
 
 
@@ -92,6 +94,8 @@ void AGenericCharacterHelperClass::UpdateMaxHealth_Implementation()
 	float CurrentHealthPercent = CurrentHealth / MaxHealth;
 
 	MaxHealth = MaxHealthBase + (MaxHealthBase * (float)MaxHealthLevel * MaxHealthIncreaseRate);
+
+	CurrentHealth = MaxHealth * CurrentHealthPercent;
 }
 
 void AGenericCharacterHelperClass::UpdateArmor_Implementation()
@@ -111,7 +115,7 @@ void AGenericCharacterHelperClass::UpdateSpeed_Implementation()
 
 void AGenericCharacterHelperClass::UpdateHealthRegen_Implementation()
 {
-	HealthRegenSecond = HealthRegenSecondBase + (2 * (float)HealthRegenSecondLevel);
+	HealthRegenSecond = HealthRegenSecondBase + (2.0f * (float)HealthRegenSecondLevel);
 }
 
 void AGenericCharacterHelperClass::UpdateLifesteal_Implementation()
